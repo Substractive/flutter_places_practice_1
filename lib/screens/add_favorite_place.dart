@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:favorite_places/models/favorite_place.dart';
 import 'package:favorite_places/widgets/image_input.dart';
+import 'package:favorite_places/widgets/location_input.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:favorite_places/providers/favorite_place_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class AddFavoritePlaceScreen extends ConsumerStatefulWidget {
 class _AddFavoritePlaceState extends ConsumerState<AddFavoritePlaceScreen> {
   final _titleController = TextEditingController();
   File? _selectedImage = null;
+  PlaceLocation? _selectedLocation;
 
   void _savePlace() {
     print("Save place");
@@ -25,7 +27,9 @@ class _AddFavoritePlaceState extends ConsumerState<AddFavoritePlaceScreen> {
 
     final placeText = _titleController.text;
 
-    if (placeText.isEmpty || _selectedImage == null) {
+    if (placeText.isEmpty ||
+        _selectedImage == null ||
+        _selectedLocation == null) {
       return;
     }
 
@@ -35,9 +39,11 @@ class _AddFavoritePlaceState extends ConsumerState<AddFavoritePlaceScreen> {
     //   title: placeText,
     //   image:
     // );
-    ref
-        .read(favoritePlacesProvider.notifier)
-        .addPlace(DateTime.now().toString(), placeText, _selectedImage!);
+    ref.read(favoritePlacesProvider.notifier).addPlace(
+        DateTime.now().toString(),
+        placeText,
+        _selectedImage!,
+        _selectedLocation!);
 
     Navigator.of(context).pop();
   }
@@ -77,6 +83,14 @@ class _AddFavoritePlaceState extends ConsumerState<AddFavoritePlaceScreen> {
             ImageInput(
               onSelectImage: (image) {
                 _selectedImage = image;
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            LocationInput(
+              onSelectLocation: (location) {
+                _selectedLocation = location;
               },
             ),
             const SizedBox(

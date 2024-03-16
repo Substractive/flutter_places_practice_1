@@ -10,8 +10,14 @@ class FavoritePlaceNotifier extends StateNotifier<List<FavoritePlace>> {
     String id,
     String title,
     File image,
+    PlaceLocation location,
   ) {
-    final newPlace = FavoritePlace(id: id, title: title, image: image);
+    final newPlace = FavoritePlace(
+      id: id,
+      title: title,
+      image: image,
+      location: location,
+    );
     print(state);
     state = [
       newPlace,
