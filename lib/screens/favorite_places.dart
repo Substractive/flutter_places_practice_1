@@ -1,4 +1,3 @@
-import 'package:favorite_places/models/favorite_place.dart';
 import 'package:favorite_places/providers/favorite_place_provider.dart';
 import 'package:favorite_places/screens/add_favorite_place.dart';
 import 'package:favorite_places/widgets/places_list.dart';
@@ -8,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class FavoritePlacesScreen extends ConsumerWidget {
   const FavoritePlacesScreen({super.key});
 
-void addNewPlace(BuildContext context) {
+  void addNewPlace(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (ctx) => const AddFavoritePlaceScreen()),
     );
@@ -30,8 +29,11 @@ void addNewPlace(BuildContext context) {
           ),
         ],
       ),
-      body: PlacesList(
-        places: favoritePlaces,
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: PlacesList(
+          places: favoritePlaces,
+        ),
       ),
     );
   }
