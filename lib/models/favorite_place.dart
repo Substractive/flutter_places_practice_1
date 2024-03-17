@@ -1,4 +1,8 @@
 import 'dart:io';
+import 'package:uuid/data.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = Uuid();
 
 class PlaceLocation {
   const PlaceLocation({
@@ -13,12 +17,12 @@ class PlaceLocation {
 }
 
 class FavoritePlace {
-  const FavoritePlace({
-    required this.id,
+  FavoritePlace({
     required this.title,
     required this.image,
     required this.location,
-  });
+    String? id,
+  }) : id = id ?? uuid.v4();
 
   final String title;
   final String id;
